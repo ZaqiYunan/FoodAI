@@ -8,7 +8,7 @@ Route::post('/vision-analyze', [ChatbotController::class, 'visionAnalyze']);
 Route::get('/', function () {
     return view('landingpage'); 
 });
-Route::get('/storage', function () {
+Route::get('/', function () {
     $ingredients = session('ingredients', []);
     return view('storagepage', ['ingredients' => $ingredients]);
 });
