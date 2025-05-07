@@ -21,7 +21,17 @@
         <span class="services">Services</span>
         <span class="contact-us">Contact us</span>
         <span class="storage">Storage</span>
-        <span class="user">User</span>
+        @if (auth()->check())
+      <!-- Show profile and username for logged-in users -->
+      <span class="user">Welcome, {{ auth()->user()->Nama_Pengguna }}</span>
+      <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+        @csrf
+        <button type="submit" class="logout-button">Logout</button>
+      </form>
+    @else
+      <!-- Show login button for guests -->
+      <a href="{{ route('signin') }}" class="login-button">Login</a>
+    @endif
       </div>
     </div>
 

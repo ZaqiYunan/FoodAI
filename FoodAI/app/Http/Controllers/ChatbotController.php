@@ -5,54 +5,56 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use LucianoTonet\GroqPHP\Groq;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 
 class ChatbotController extends Controller
 {
     public function saveIngredients(Request $request)
-{
-    $ingredients = $request->input('ingredients', '');
-    $ingredientsArray = explode(',', $ingredients); // Convert comma-separated string to an array
-    $client = new Client(); // Initialize Guzzle HTTP client
+    {
+        if (!auth()->check()) {
+            return redirect('/signin')->with('error', 'You must be logged in to add ingredients.');
+        }
 
-    $ingredientImages = session('ingredientImages', []); // Retrieve existing ingredient images from the session
+        // Validate the request data
+        $validatedData = $request->validate([
+            'ingredient_category' => 'required|string',
+            'storage_type' => 'required|string',
+            'ingredient_name' => 'required|string|max:255',
+            'ingredient_quantity' => 'required|integer|min:1',
+            'ingredient_production_date' => 'required|date',
+            'ingredient_expiry' => 'required|date|after_or_equal:ingredient_production_date',
+        ]);
 
-    foreach ($ingredientsArray as $ingredient) {
-        $ingredient = trim($ingredient); // Trim whitespace
-        if (!isset($ingredientImages[$ingredient])) {
-            try {
-                // Make an HTTP request to Groq's API for image generation
-                $response = $client->post('https://api.groq.com/v1/vision/generate-image', [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . env('GROQ_API_KEY'),
-                        'Content-Type' => 'application/json',
-                    ],
-                    'json' => [
-                        'prompt' => "A high-quality image of $ingredient",
-                        'model' => 'meta-llama/llama-4-scout-17b-16e-instruct',
-                    ],
-                ]);
+        \Log::info('Validation passed', $validatedData);
 
-                $responseBody = json_decode($response->getBody(), true);
-                $imageUrl = $responseBody['data']['url'] ?? null; // Extract the image URL from the response
-                $ingredientImages[$ingredient] = $imageUrl ?: asset('images/default.png'); // Use default image if URL is missing
-            } catch (\Exception $e) {
-                // Log the error and use a placeholder image if the API call fails
-                \Log::error("Error generating image for $ingredient: " . $e->getMessage());
-                $ingredientImages[$ingredient] = asset('images/default.png'); // Default placeholder image
-            }
+        // Use a placeholder image since the Groq API call is removed
+        $imageUrl = asset('images/Gambar_pangan_Lokal.jpg'); // Default placeholder image
+
+        try {
+            // Save the ingredient to the database with proper data formatting
+            DB::table('Bahan_Pengguna')->insert([
+                'ID_Pengguna' => auth()->id(), // Associate the ingredient with the authenticated user
+                'Nama_Bahan' => $validatedData['ingredient_name'],
+                'Kategori_Bahan' => $validatedData['ingredient_category'],
+                'Jumlah_Bahan' => $validatedData['ingredient_quantity'],
+                'Tipe_Penyimpanan' => substr($validatedData['storage_type'], 0, 50), // Limit the length to avoid truncation
+                'Tanggal_Produksi' => $validatedData['ingredient_production_date'],
+                'Tanggal_Kadaluarsa' => $validatedData['ingredient_expiry'],
+                'Image_Bahan' => $imageUrl, // Save the placeholder image URL
+                'Tgl_Pembuatan' => now(),
+            ]);
+
+            \Log::info('Ingredient saved successfully', $validatedData);
+
+            return redirect('/storage')->with('success', 'Ingredient added successfully!');
+        } catch (\Exception $e) {
+            // Log the error with more details for debugging
+            \Log::error("Error saving ingredient: " . $e->getMessage());
+            \Log::error("Data that caused the error: " . json_encode($validatedData));
+            
+            return redirect('/storageform')->with('error', 'Failed to save ingredient. Please try again.');
         }
     }
-
-    // Save the ingredients and their images in the session
-    session(['ingredients' => $ingredientsArray]);
-    session(['ingredientImages' => $ingredientImages]);
-
-    return response()->json([
-        'message' => 'Ingredients saved successfully.',
-        'ingredients' => $ingredientsArray,
-        'ingredientImages' => $ingredientImages
-    ]);
-}
 
     public function getRecommendation(Request $request)
     {

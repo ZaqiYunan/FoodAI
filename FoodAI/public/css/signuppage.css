@@ -1,0 +1,297 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 1440px;
+  height: 871px;
+  margin: 0 auto;
+  background: #fffdf6;
+  overflow: hidden;
+}
+.rectangle {
+  position: absolute;
+  width: 832px;
+  height: 871px;
+  top: 0;
+  right: 0;
+  background: #524949;
+}
+.sign-up-text {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  width: 217px;
+  height: 36px;
+  top: 97px;
+  left: 207px;
+  color: #000000;
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 36px;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: -0.4px;
+  z-index: 1;
+}
+.account-sign-in {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 13px;
+  top: 147px;
+  left: calc(50% - 474px);
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 10;
+}
+.email {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 20px;
+  top: 189px;
+  left: 102px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.52px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 6;
+}
+.rectangle-1 {
+  position: absolute;
+  width: 417px;
+  height: 35px;
+  top: 222px;
+  left: 102px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  border-radius: 10px;
+}
+.username {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 20px;
+  top: 292px;
+  left: 102px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.52px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 7;
+}
+.rectangle-2 {
+  position: absolute;
+  width: 417px;
+  height: 35px;
+  top: 325px;
+  left: 102px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 3;
+  border-radius: 10px;
+}
+.password {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 20px;
+  top: 395px;
+  left: 101px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.52px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 8;
+}
+.rectangle-3 {
+  position: absolute;
+  width: 417px;
+  height: 35px;
+  top: 428px;
+  left: 101px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  border-radius: 10px;
+}
+.confirm-password {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 20px;
+  top: 498px;
+  left: 102px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.52px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 9;
+}
+.rectangle-4 {
+  position: absolute;
+  width: 417px;
+  height: 35px;
+  top: 531px;
+  left: 102px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  border-radius: 10px;
+}
+.rectangle-5 {
+  position: absolute;
+  width: 301px;
+  height: 35px;
+  top: 614px;
+  left: 50%;
+  background: #517829;
+  transform: translate(-186.05%, 0);
+  z-index: 12;
+  border-radius: 10px;
+}
+.sign-up-6 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 17px;
+  top: calc(50% - 8.5px);
+  left: calc(50% - 25.5px);
+  color: #ffffff;
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 15;
+}
+.or-sign-up-with {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 13px;
+  top: 711px;
+  left: calc(50% - 448px);
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 11;
+}
+.line {
+  position: absolute;
+  width: 140px;
+  height: 1px;
+  top: 717px;
+  left: 102px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-07/oNFbPKvWbJ.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 13;
+}
+.line-7 {
+  position: absolute;
+  width: 140px;
+  height: 1px;
+  top: 717px;
+  left: 379px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-07/HSfaCYaGy8.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 14;
+}
+.rectangle-8 {
+  position: absolute;
+  width: 417px;
+  height: 35px;
+  top: 743px;
+  left: 102px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 17;
+  border-radius: 10px;
+}
+.social-icons {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  top: 8px;
+  left: 143px;
+  z-index: 19;
+  overflow: hidden;
+}
+.vector {
+  position: relative;
+  width: 16.66px;
+  height: 17px;
+  margin: 0 0 0 0;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-07/sfqm6ngyGB.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 20;
+}
+.continue-with-google {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 13px;
+  top: 11px;
+  left: 167px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: Instrument Sans, var(--default-font-family);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 21;
+}

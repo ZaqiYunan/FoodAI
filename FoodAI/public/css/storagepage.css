@@ -1,7 +1,18 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+  --primary-color: #517829;
+  --secondary-color: #fffdf6;
+  --text-color: #000000;
+  --placeholder-color: rgba(0, 0, 0, 0.5);
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: var(--default-font-family);
   background-color: #f8f8f8;
 }
 
@@ -10,7 +21,7 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   padding: 20px;
-  background: #ffffff;
+  background: var(--secondary-color);
 }
 
 .rectangle {
@@ -18,7 +29,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  background: #fffdf6;
+  background: var(--secondary-color);
   border-bottom: 1px solid #ddd;
 }
 
@@ -30,7 +41,7 @@ body {
 .logo {
   font-size: 20px;
   font-weight: 500;
-  color: #000000;
+  color: var(--text-color);
 }
 
 .nav-links {
@@ -41,7 +52,7 @@ body {
 .nav-links span {
   font-size: 16px;
   font-weight: 500;
-  color: #000000;
+  color: var(--text-color);
   cursor: pointer;
 }
 
@@ -49,72 +60,90 @@ body {
   text-decoration: underline;
 }
 
-.welcome-to-storage {
+.welcome-to-your-storage {
   display: block;
   text-align: center;
   font-size: 36px;
   font-weight: 800;
-  color: #000000;
+  color: var(--text-color);
   margin: 40px 0;
   text-transform: uppercase;
 }
 
-.ingredients-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.ingredient-item {
-  background: #fffdf6;
+.ingredient-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.ingredient-item:hover {
-  transform: scale(1.05);
-}
-
-.ingredient-image {
-  width: 100px;
-  height: 100px;
-  background: #d9d9d9;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.ingredient-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.ingredient-name {
+.ingredient-form label {
+  display: block;
   font-size: 16px;
   font-weight: 500;
-  color: #333333;
+  color: var(--text-color);
+  margin-bottom: 8px;
 }
 
-.add-item {
-  background: #f0f0f0;
-  border: 2px dashed #ccc;
+.ingredient-form input,
+.ingredient-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: var(--default-font-family);
+  color: var(--text-color);
 }
 
-.add-icon {
-  font-size: 36px;
+.ingredient-form input::placeholder,
+.ingredient-form select::placeholder {
+  color: var(--placeholder-color);
+}
+
+.ingredient-form button {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary-color);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ingredient-form button:hover {
+  background: #3e5e20;
+}
+
+.ingredient-form input:focus,
+.ingredient-form select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 120, 41, 0.5);
+}
+.user {
+  font-size: 16px;
   font-weight: bold;
-  color: #999999;
+  color: #333;
+  margin-right: 10px;
+}
+
+.login-button, .logout-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-button:hover, .logout-button:hover {
+  background-color: #0056b3;
 }

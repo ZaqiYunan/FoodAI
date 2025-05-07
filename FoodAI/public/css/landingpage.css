@@ -1745,3 +1745,22 @@ button {
   background-size: cover;
   z-index: 32;
 }
+.username {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-button, .logout-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-button:hover, .logout-button:hover {
+  background-color: #0056b3;
+}
