@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recommendation and Vision Chatbot</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>Food Recommendation and Vision Chatbot</h1>
+        </div>
+
+        <!-- Ingredients Input Section -->
+        <div class="section">
+            <h2>Enter Ingredients</h2>
+            <form id="ingredients-form">
+                <label for="ingredients">Ingredients in your fridge (comma-separated):</label><br>
+                <input type="text" id="ingredients" name="ingredients" class="input-field" required><br><br>
+                <button type="submit" class="btn">Save Ingredients</button>
+            </form>
+        </div>
+
+        <!-- Saved Ingredients Section -->
+        <div class="section">
+            <h2>Saved Ingredients</h2>
+            <p id="saved-ingredients">No ingredients saved yet.</p>
+        </div>
+
+        <!-- Food Recommendation Section -->
+        <div class="section">
+            <h2>Get Food Recommendations</h2>
+            <form id="recommendation-form">
+                <label for="query">Enter your query:</label><br>
+                <input type="text" id="query" name="query" class="input-field" value="Recommend a recipe based on my ingredients." required><br><br>
+
+                <label for="temperature">Select Temperature:</label><br>
+                <input type="number" id="temperature" name="temperature" class="input-field" step="0.1" min="0" max="1" value="0.7"><br><br>
+
+                <button type="submit" class="btn">Get Recommendation</button>
+            </form>
+            <h3>Response:</h3>
+            <p id="response-content">No response yet.</p>
+        </div>
+
+        <!-- Chatbot Section -->
+        <div class="section chatbot">
+            <h2>Chatbot</h2>
+            <div class="chat-display" id="chat-display">
+                <!-- Chat messages will appear here -->
+            </div>
+            <form id="chat-form" class="chat-input-container">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type your message..." required>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </div>
+
+        <!-- Vision Chatbot Section -->
+        <div class="section vision">
+            <h2>Vision Chatbot</h2>
+            <form id="vision-form">
+                <label for="image-url">Enter Image URL:</label><br>
+                <input type="text" id="image-url" class="input-field" placeholder="https://example.com/image.jpg"><br><br>
+
+                <label for="image-file">Or Upload an Image:</label><br>
+                <input type="file" id="image-file" class="input-field" accept="image/*"><br><br>
+
+                <button type="submit" class="btn">Analyze Image</button>
+            </form>
+            <h3>Vision Analysis Result:</h3>
+            <p id="vision-result">No analysis yet.</p>
+        </div>
+    </div>
+
+    <script>
+        // Handle Ingredients Form Submission
+        const ingredientsForm = document.getElementById('ingredients-form');
+        const savedIngredients = document.getElementById('saved-ingredients');
+
+        ingredientsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const ingredients = document.getElementById('ingredients').value;
+
+            const response = await fetch('chatbot.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ingredients })
+            });
+
+            const data = await response.json();
+            savedIngredients.textContent = data.ingredients ? data.ingredients.join(', ') : 'No ingredients saved.';
+        });
+
+        // Handle Recommendation Form Submission
+        const recommendationForm = document.getElementById('recommendation-form');
+        const responseContent = document.getElementById('response-content');
+
+        recommendationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            const temperature = document.getElementById('temperature').value;
+
+            const response = await fetch('chatbot.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query, temperature })
+            });
+
+            const data = await response.json();
+            responseContent.textContent = data.recommendation || 'No response yet.';
+        });
+
+        // Handle Chatbot Form Submission
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatDisplay = document.getElementById('chat-display');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'chat-message user';
+            userMessageElement.textContent = userMessage;
+            chatDisplay.appendChild(userMessageElement);
+
+            chatInput.value = '';
+
+            const response = await fetch('chatbot.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_message: userMessage })
+            });
+
+            const data = await response.json();
+
+            const botMessageElement = document.createElement('div');
+            botMessageElement.className = 'chat-message bot';
+            botMessageElement.textContent = data.response || 'No response from the bot.';
+            chatDisplay.appendChild(botMessageElement);
+        });
+
+        // Handle Vision Chatbot Form Submission
+        const visionForm = document.getElementById('vision-form');
+        const visionResult = document.getElementById('vision-result');
+
+        visionForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const imageUrl = document.getElementById('image-url').value;
+            const imageFile = document.getElementById('image-file').files[0];
+
+            const formData = new FormData();
+            if (imageUrl) {
+                formData.append('image_url', imageUrl);
+            }
+            if (imageFile) {
+                formData.append('image_file', imageFile);
+            }
+
+            try {
+                const response = await fetch('chatbot.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                visionResult.textContent = data.description || 'No description available.';
+            } catch (error) {
+                console.error('Error:', error);
+                visionResult.textContent = 'An error occurred while analyzing the image.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "lucianotonet/groq-laravel": "^0.0.10",
+        "lucianotonet/groq-php": "^0.0.10"
+    }
+}
